@@ -1,31 +1,73 @@
 {
-  "name": "backend",
+  "name": "basic-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon --exec babel-node src/index.js",
+    "build": "babel ./src --out-dir ./build",
+    "dev": "npm run build && nodemon ./dist/bundle.js",
+    "lint": "eslint ./src/ --ignore-path .gitignore",
+    "lint:fix": "npm lint --fix",
+    "prettify": "prettier --write"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Dat-Ve-Xem-Phim/BackEnd.git"
-  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Dat-Ve-Xem-Phim/BackEnd/issues"
+  "devDependencies": {
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.9",
+    "@babel/node": "^7.12.6",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/runtime": "^7.12.5",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "eslint": "^7.12.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.2.0",
+    "faker": "^5.1.0",
+    "husky": "^4.3.5",
+    "lint-staged": "^10.4.2",
+    "nodemon": "^2.0.6",
+    "prettier": "^2.2.1",
+    "sequelize-cli": "^6.2.0"
   },
-  "homepage": "https://github.com/Dat-Ve-Xem-Phim/BackEnd#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "helmet": "^4.1.1",
+    "http": "^0.0.1-security",
     "http-status": "^1.5.0",
-    "mongoose": "^5.11.8",
-    "morgan": "^1.10.0"
+    "joi": "^17.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
+    "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "pg": "^8.5.1",
+    "sequelize": "^6.3.5",
+    "uuid": "^8.3.1"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.6"
+  "engines": {
+    "npm": ">=6.4.1",
+    "node": ">=10.13.0"
+  },
+  "lint-staged": {
+    "*.{js}": [
+      "npm run eslint -- --fix"
+    ],
+    "*.{md,json}": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
