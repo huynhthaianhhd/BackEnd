@@ -14,7 +14,7 @@ userValidation.updateInfo = {
     email: Joi.string().email(),
     name: Joi.string().pattern(/^[a-zA-Z ]+$/),
     avatar: Joi.string(),
-    country: Joi.string().pattern(/^[a-zA-Z ]+$/),
+    address: Joi.string(),
     phone: Joi.string(),
   }),
 };
