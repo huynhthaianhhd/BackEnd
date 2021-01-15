@@ -15,6 +15,13 @@ module.exports = {
           key: 'id',
         },
       },
+      cinemaId: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'Cinemas',
+          key: 'id',
+        },
+      },
       startTime: {
         type: Sequelize.DATE,
       },

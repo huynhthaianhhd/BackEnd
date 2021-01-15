@@ -69,7 +69,7 @@ const cinemaGroups = [...Array(5)].map(() => ({
   updatedAt: new Date(),
 }));
 
-// Fake 5 cinemas per cinema group
+// Fake 25 cinemas (5 cinemas per cinema group)
 const cinemas = cinemaGroups
   .map((group) => {
     return [...Array(5)].map(() => ({
@@ -88,28 +88,12 @@ const cinemas = cinemaGroups
     return acc;
   }, []);
 
-// Fake 5 rooms per cinema
-const rooms = cinemas
+// Fake 1250 seats (50 seats per cinema)
+const seats = cinemas
   .map((cinema) => {
-    return [...Array(5)].map(() => ({
-      id: faker.random.uuid(),
-      cinemaId: cinema.id,
-      name: faker.commerce.productName(),
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }));
-  })
-  .reduce((acc, curr) => {
-    acc.push(...curr);
-    return acc;
-  }, []);
-
-// Fake 50 seats per room
-const seats = rooms
-  .map((room) => {
     return [...Array(50)].map(() => ({
       id: faker.random.uuid(),
-      roomId: room.id,
+      cinemaId: cinema.id,
       createdAt: new Date(),
       updatedAt: new Date(),
     }));
@@ -119,35 +103,58 @@ const seats = rooms
     return acc;
   }, []);
 
-// Fake show times
-const showTimes = movies
-  .map((movie) => {
-    const showTimeObjects = seats.map((seat) => ({ seatId: seat.id }));
-    return Object.values(showTimeObjects).map((showTime) => ({
-      ...showTime,
-      id: faker.random.uuid(),
-      movieId: movie.id,
-      startTime: faker.date.future(),
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }));
-  })
-  .reduce((acc, curr) => {
-    acc.push(...curr);
-    return acc;
-  }, []);
-
-// Fake 50 transactions
-const transactions = [...Array(50)].map((_, index) => ({
+// Fake 300 show times
+const showTimes = [...Array(300)].map(() => ({
   id: faker.random.uuid(),
-  userId: members[index].id,
-  showTimeId: showTimes[index].id,
+  movieId:
+    movies[
+      faker.random.number({
+        min: 0,
+        max: 49,
+      })
+    ].id,
+  cinemaId:
+    cinemas[
+      faker.random.number({
+        min: 0,
+        max: 24,
+      })
+    ].id,
+  startTime: faker.date.future(),
   createdAt: new Date(),
   updatedAt: new Date(),
 }));
 
-// Fake movie reviews
-const movieReviews = [...Array(100)].map(() => ({
+// Fake 900 transactions
+const transactions = [...Array(900)].map(() => ({
+  id: faker.random.uuid(),
+  userId:
+    members[
+      faker.random.number({
+        min: 0,
+        max: 49,
+      })
+    ].id,
+  showTimeId:
+    showTimes[
+      faker.random.number({
+        min: 0,
+        max: 299,
+      })
+    ].id,
+  seatId:
+    seats[
+      faker.random.number({
+        min: 0,
+        max: 1249,
+      })
+    ].id,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+}));
+
+// Fake 200 movie reviews
+const movieReviews = [...Array(200)].map(() => ({
   id: faker.random.uuid(),
   userId:
     members[
@@ -158,7 +165,7 @@ const movieReviews = [...Array(100)].map(() => ({
     ].id,
   content: faker.lorem.paragraph(),
   rating: faker.random.number({
-    min: 0,
+    min: 1,
     max: 5,
   }),
   movieId:
@@ -180,7 +187,6 @@ module.exports = {
   movies,
   cinemaGroups,
   cinemas,
-  rooms,
   seats,
   showTimes,
   transactions,
