@@ -50,6 +50,7 @@ const movies = [...Array(50)].map(() => ({
         min: 1,
         max: 5,
       }),
+    ),
   ].map(() => `${faker.name.firstName()} ${faker.name.lastName()}`),
   premiereTime: faker.date.past(),
   language: faker.address.country(),
