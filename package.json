@@ -7,6 +7,8 @@
     "start": "nodemon --exec babel-node src/index.js",
     "build": "babel ./src --out-dir ./build",
     "dev": "npm run build && nodemon ./dist/bundle.js",
+    "migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
+    "migrate:seed": "sequelize db:seed:undo:all && sequelize db:seed:all",
     "lint": "eslint ./src/ --ignore-path .gitignore",
     "lint:fix": "npm lint --fix",
     "prettify": "prettier --write"

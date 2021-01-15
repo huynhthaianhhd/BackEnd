@@ -2,29 +2,21 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Transactions', {
+    await queryInterface.createTable('Rooms', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
       },
-      userId: {
-        allowNull: false,
-        primaryKey: true,
+      cinemaId: {
         type: Sequelize.UUID,
         references: {
-          model: 'Users',
+          model: 'Cinemas',
           key: 'id',
         },
       },
-      showTimeId: {
-        allowNull: false,
-        primaryKey: true,
-        type: Sequelize.UUID,
-        references: {
-          model: 'ShowTimes',
-          key: 'id',
-        },
+      name: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -38,6 +30,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable('Transactions');
+    await queryInterface.dropTable('Rooms');
   },
 };
