@@ -15,13 +15,6 @@ module.exports = {
           key: 'id',
         },
       },
-      seatId: {
-        type: Sequelize.UUID,
-        references: {
-          model: 'Seats',
-          key: 'id',
-        },
-      },
       startTime: {
         type: Sequelize.DATE,
       },

@@ -8,10 +8,6 @@ module.exports = (sequelize, DataTypes) => {
         as: 'movie',
         foreignKey: 'movieId',
       });
-      this.belongsTo(models.Seat, {
-        as: 'seat',
-        foreignKey: 'seatId',
-      });
     }
   }
 
@@ -33,15 +29,7 @@ module.exports = (sequelize, DataTypes) => {
           key: 'id',
         },
       },
-      seatId: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        primaryKey: true,
-        references: {
-          model: 'Seat',
-          key: 'id',
-        },
-      },
+
       startTime: DataTypes.DATE,
     },
     {

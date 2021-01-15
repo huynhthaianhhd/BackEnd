@@ -22,6 +22,13 @@ module.exports = {
           key: 'id',
         },
       },
+      seatId: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'Seats',
+          key: 'id',
+        },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
