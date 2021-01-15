@@ -3,12 +3,7 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Cinema extends Model {
-    static associate(models) {
-      this.belongsTo(models.GroupCinema, {
-        as: 'groupCinema',
-        foreignKey: 'idGroup',
-      });
-    }
+    static associate(models) {}
   }
 
   Cinema.init(
@@ -36,7 +31,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      paranoid: true,
       modelName: 'Cinema',
     },
   );

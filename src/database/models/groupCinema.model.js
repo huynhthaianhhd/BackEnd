@@ -5,6 +5,10 @@ module.exports = (sequelize, DataTypes) => {
   class GroupCinema extends Model {
     static associate(models) {
       // define association here
+      this.hasMany(models.Cinema, {
+        as: 'cinemas',
+        foreignKey: 'idGroup',
+      });
     }
   }
 
@@ -21,7 +25,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      paranoid: true,
       modelName: 'GroupCinema',
     },
   );
