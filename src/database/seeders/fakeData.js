@@ -32,12 +32,10 @@ const memberRoles = members
     updatedAt: new Date(),
   }));
 
-// Fake 100 movies
-const movies = [...Array(100)].map(() => ({
+// Fake 50 movies
+const movies = [...Array(50)].map(() => ({
   id: faker.random.uuid(),
   name: faker.commerce.productName(),
-  email: faker.internet.email(),
-  password: defaultPassword,
   director: `${faker.name.firstName()} ${faker.name.lastName()}`,
   description: faker.lorem.paragraph(),
   duration: faker.random.number({
@@ -52,7 +50,6 @@ const movies = [...Array(100)].map(() => ({
         min: 1,
         max: 5,
       }),
-    ),
   ].map(() => `${faker.name.firstName()} ${faker.name.lastName()}`),
   premiereTime: faker.date.past(),
   language: faker.address.country(),
@@ -141,7 +138,6 @@ const transactions = [...Array(50)].map((_, index) => ({
   id: faker.random.uuid(),
   userId: members[index].id,
   showTimeId: showTimes[index].id,
-  paymentDate: faker.date.past(),
   createdAt: new Date(),
   updatedAt: new Date(),
 }));
@@ -151,23 +147,25 @@ const movieReviews = [...Array(100)].map(() => ({
   id: faker.random.uuid(),
   userId:
     members[
-      faker.random({
+      faker.random.number({
         min: 0,
         max: 49,
       })
     ].id,
   content: faker.lorem.paragraph(),
-  rating: faker.random({
+  rating: faker.random.number({
     min: 0,
     max: 5,
   }),
   movieId:
     movies[
-      faker.random({
+      faker.random.number({
         min: 0,
-        max: 99,
+        max: 49,
       })
     ].id,
+  createdAt: new Date(),
+  updatedAt: new Date(),
 }));
 
 module.exports = {

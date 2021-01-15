@@ -18,10 +18,10 @@ module.exports = {
         type: Sequelize.STRING,
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       duration: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       category: {
         type: Sequelize.STRING,
@@ -32,7 +32,7 @@ module.exports = {
       casts: {
         type: Sequelize.STRING,
       },
-      primereTime: {
+      premiereTime: {
         type: Sequelize.DATE,
       },
       language: {
