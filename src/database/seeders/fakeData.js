@@ -16,7 +16,9 @@ const members = [...Array(50)].map(() => ({
   email: faker.internet.email(),
   password: defaultPassword,
   name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-  avatar: faker.internet.avatar(),
+  address: faker.address.streetAddress(),
+  avatar:
+    'https://www.alliancerehabmed.com/wp-content/uploads/icon-avatar-default.png',
   phone: faker.phone.phoneNumber(),
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -38,6 +40,7 @@ const movies = [...Array(50)].map(() => ({
   name: faker.commerce.productName(),
   director: `${faker.name.firstName()} ${faker.name.lastName()}`,
   description: faker.lorem.paragraph(),
+  trailerUrl: 'https://www.youtube.com/embed/XW2E2Fnh52w',
   duration: faker.random.number({
     min: 60,
     max: 180,
