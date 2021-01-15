@@ -5,8 +5,8 @@ module.exports = (sequelize, DataTypes) => {
   class Seat extends Model {
     static associate(models) {
       this.belongsTo(models.Room, {
-        as: 'room',
-        foreignKey: 'roomId',
+        as: 'cinema',
+        foreignKey: 'cinemaId',
       });
     }
   }
@@ -20,12 +20,12 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: DataTypes.UUIDV4,
         autoIncrement: false,
       },
-      roomId: {
+      cinemaId: {
         type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true,
         references: {
-          model: 'Room',
+          model: 'Cinema',
           key: 'id',
         },
       },
