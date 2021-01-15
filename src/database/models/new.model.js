@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
           key: 'id',
         },
       },
-      content: DataTypes.STRING,
+      content: DataTypes.TEXT,
     },
     {
       sequelize,
