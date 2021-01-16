@@ -3,7 +3,12 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class ShowTime extends Model {
-    static associate() {}
+    static associate(models) {
+      this.belongsTo(models.Cinema, {
+        as: 'cinema',
+        foreignKey: 'cinemaId',
+      });
+    }
   }
 
   ShowTime.init(
