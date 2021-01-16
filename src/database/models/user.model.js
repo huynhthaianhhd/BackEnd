@@ -35,6 +35,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       name: DataTypes.STRING,
       phone: DataTypes.STRING,
+      isBlocked: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
     },
     {
       sequelize,
