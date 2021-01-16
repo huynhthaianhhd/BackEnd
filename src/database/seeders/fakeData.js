@@ -1,5 +1,14 @@
 const faker = require('faker');
 
+//date from to
+let mom = function (from, to) {
+  const fromMilli = Date.parse(from);
+  const dateOffset = faker.random.number(Date.parse(to) - fromMilli);
+
+  const newDate = new Date(fromMilli + dateOffset);
+
+  return newDate;
+};
 // Default password: 123132
 const defaultPassword =
   '$2a$12$VvWghIAnvkFgVG1hZ6OGyeaDtEPKGxZYmEu9PExiuke2WCDS5Fywe';
@@ -117,7 +126,7 @@ const seats = cinemas
   }, []);
 
 // Fake 300 show times
-const showTimes = [...Array(300)].map(() => ({
+const showTimes = [...Array(500)].map(() => ({
   id: faker.random.uuid(),
   movieId:
     movies[
@@ -133,7 +142,7 @@ const showTimes = [...Array(300)].map(() => ({
         max: 24,
       })
     ].id,
-  startTime: faker.date.future(),
+  startTime: mom(Date(), '2021-01-29'),
   createdAt: new Date(),
   updatedAt: new Date(),
 }));

@@ -4,9 +4,9 @@ import catchAsync from 'utils/catchAsync';
 const groupCinemaController = {};
 
 groupCinemaController.getAll = catchAsync(async (req, res) => {
-  const { id } = req.query;
+  const { id, date } = req.body;
   if (id) {
-    const result = await groupCinema.getAllByGroupId({ id });
+    const result = await groupCinema.getAllByGroupId({ id, date });
     return res.send(result);
   } else {
     const allGroup = await groupCinema.getAll();
