@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
         as: 'cinema',
         foreignKey: 'cinemaId',
       });
+      this.hasOne(models.Transaction, {
+        as: 'transaction',
+        foreignKey: 'seatId',
+      });
     }
   }
 
@@ -23,7 +27,6 @@ module.exports = (sequelize, DataTypes) => {
       cinemaId: {
         type: DataTypes.UUID,
         allowNull: false,
-        primaryKey: true,
         references: {
           model: 'Cinema',
           key: 'id',

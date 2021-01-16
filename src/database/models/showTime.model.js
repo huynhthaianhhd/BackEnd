@@ -3,7 +3,7 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class ShowTime extends Model {
-    static associate(models) {}
+    static associate() {}
   }
 
   ShowTime.init(
@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
       movieId: {
         type: DataTypes.UUID,
         allowNull: false,
-        primaryKey: true,
         references: {
           model: 'Movie',
           key: 'id',
@@ -26,8 +25,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       cinemaId: {
         type: DataTypes.UUID,
+        allowNull: false,
         references: {
-          model: 'Cinemas',
+          model: 'Cinema',
           key: 'id',
         },
       },
