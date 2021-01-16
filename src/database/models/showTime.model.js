@@ -8,6 +8,11 @@ module.exports = (sequelize, DataTypes) => {
         as: 'movie',
         foreignKey: 'movieId',
       });
+
+      this.belongsTo(models.Cinema, {
+        as: 'cinema',
+        foreignKey: 'cinemaId',
+      });
     }
   }
 

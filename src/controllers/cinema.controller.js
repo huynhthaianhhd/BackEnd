@@ -8,4 +8,10 @@ cinemaController.getAll = catchAsync(async (req, res) => {
   return res.json(cinemas);
 });
 
+cinemaController.getCinemaOfGroupByTimeNMovie = catchAsync(async (req, res) => {
+  const data = req.body;
+  const cinemas = await cinemaService.getCinemaOfGroupByTimeNMovie(data);
+  res.json({ status: 'Success', data: cinemas });
+});
+
 export default cinemaController;

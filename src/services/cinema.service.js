@@ -27,4 +27,28 @@ cinemaService.getOneByShowTimeId = async (showTimeId) => {
   });
 };
 
+cinemaService.getCinemaOfGroupByTimeNMovie = async (data) => {
+  const { movieId, startTime, idGroup } = data;
+
+  const cinemas = await ShowTime.findAll({
+    include: [
+      {
+        model: Cinema,
+        as: 'cinema',
+        required: false,
+        where: {
+          idGroup,
+        },
+      },
+    ],
+    where: {
+      movieId,
+      startTime,
+    },
+    order: [['createdAt', 'DESC']],
+  });
+
+  return cinemas;
+};
+
 export default cinemaService;

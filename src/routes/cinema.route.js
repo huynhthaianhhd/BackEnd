@@ -3,5 +3,6 @@ import cinemaController from 'controllers/cinema.controller';
 const router = express.Router();
 
 router.get('/', cinemaController.getAll);
+router.post('/', cinemaController.getCinemaOfGroupByTimeNMovie);
 
 export default router;
