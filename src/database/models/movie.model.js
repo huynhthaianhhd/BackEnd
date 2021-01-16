@@ -4,7 +4,15 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Movie extends Model {
     static associate(models) {
-      // define association here
+      this.belongsToMany(models.Cinema, {
+        through: models.ShowTime,
+        foreignKey: 'movieId',
+        as: 'cinemas',
+      });
+      this.hasMany(models.ShowTime, {
+        foreignKey: 'movieId',
+        as: 'showTimes',
+      });
     }
   }
 
@@ -25,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       duration: DataTypes.STRING,
       category: DataTypes.STRING,
       classify: DataTypes.STRING,
-      casts: DataTypes.STRING,
+      casts: DataTypes.ARRAY(DataTypes.STRING),
       premiereTime: DataTypes.DATE,
       language: DataTypes.STRING,
     },

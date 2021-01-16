@@ -33,7 +33,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       casts: {
-        type: Sequelize.STRING,
+        type: Sequelize.ARRAY(Sequelize.STRING),
       },
       premiereTime: {
         type: Sequelize.DATE,
