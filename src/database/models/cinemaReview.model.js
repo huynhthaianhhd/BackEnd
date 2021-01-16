@@ -27,7 +27,6 @@ module.exports = (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.UUID,
         allowNull: false,
-        primaryKey: true,
         references: {
           model: 'User',
           key: 'id',
@@ -36,7 +35,6 @@ module.exports = (sequelize, DataTypes) => {
       cinemaId: {
         type: DataTypes.UUID,
         allowNull: false,
-        primaryKey: true,
         references: {
           model: 'Cinema',
           key: 'id',
