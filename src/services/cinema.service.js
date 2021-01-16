@@ -3,7 +3,7 @@ import {
   Seat,
   Transaction,
   ShowTime,
-  GroupCinema,
+  // GroupCinema,
 } from 'database/models';
 
 const cinemaService = {};
