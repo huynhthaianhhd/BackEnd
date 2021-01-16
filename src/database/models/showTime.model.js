@@ -23,13 +23,19 @@ module.exports = (sequelize, DataTypes) => {
       movieId: {
         type: DataTypes.UUID,
         allowNull: false,
-        primaryKey: true,
         references: {
           model: 'Movie',
           key: 'id',
         },
       },
-
+      cinemaId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: {
+          model: 'Cinema',
+          key: 'id',
+        },
+      },
       startTime: DataTypes.DATE,
     },
     {

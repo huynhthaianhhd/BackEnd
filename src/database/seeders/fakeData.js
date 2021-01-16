@@ -91,9 +91,10 @@ const cinemas = cinemaGroups
 // Fake 1250 seats (50 seats per cinema)
 const seats = cinemas
   .map((cinema) => {
-    return [...Array(50)].map(() => ({
+    return [...Array(50)].map((_, index) => ({
       id: faker.random.uuid(),
       cinemaId: cinema.id,
+      no: index,
       createdAt: new Date(),
       updatedAt: new Date(),
     }));
