@@ -1,4 +1,4 @@
-import { Movie } from 'database/models';
+import { Movie, Cinema } from 'database/models';
 
 const movieService = {};
 
@@ -8,4 +8,16 @@ movieService.getAll = async ({ limit, offset }) => {
     offset: offset || 8,
   });
 };
+
+movieService.getMovieByCinema = async () => {
+  return await Cinema.findAll({
+    include: [
+      {
+        model: Movie,
+        as: 'movies',
+      },
+    ],
+  });
+};
+
 export default movieService;
