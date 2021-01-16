@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       name: DataTypes.STRING,
       trailerUrl: DataTypes.STRING,
+      posterUrl: DataTypes.STRING,
       director: DataTypes.STRING,
       description: DataTypes.TEXT,
       duration: DataTypes.STRING,

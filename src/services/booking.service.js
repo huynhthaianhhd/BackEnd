@@ -1,4 +1,4 @@
-import { Cinema, Seat, Transaction, ShowTime } from 'database/models';
+import { Cinema, Seat, Transaction, ShowTime, Movie } from 'database/models';
 
 const bookingService = {};
 
@@ -14,6 +14,14 @@ bookingService.getInfoByShowTimeId = async (showTimeId) => {
       id: showTime.cinemaId,
     },
     include: [
+      {
+        model: ShowTime,
+        as: 'showTime',
+        where: {
+          id: showTimeId,
+        },
+        include: [{ model: Movie, as: 'movie' }],
+      },
       {
         model: Seat,
         as: 'seat',
