@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       duration: DataTypes.STRING,
       category: DataTypes.STRING,
       classify: DataTypes.STRING,
-      casts: DataTypes.STRING,
+      casts: DataTypes.ARRAY(DataTypes.STRING),
       premiereTime: DataTypes.DATE,
       language: DataTypes.STRING,
     },
