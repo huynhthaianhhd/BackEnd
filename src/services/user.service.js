@@ -3,6 +3,7 @@ import { paginate } from 'utils/sequelize';
 import httpStatus from 'http-status';
 import ApiError from 'utils/ApiError';
 import { ROLES } from 'utils/constants';
+import { Op } from 'sequelize';
 
 const userService = {};
 
@@ -68,6 +69,37 @@ userService.getMany = async (query) => {
   });
 
   return users;
+};
+
+userService.getAllUsersExceptAdmin = async () => {
+  // tất cả những users bao gồm admin
+  let users = await User.findAll({
+    attributes: {
+      exclude: ['password'],
+    },
+    include: Role,
+  });
+
+  // chọn ra những users không có admin
+  users = users.filter((user) => {
+    for (let i = 0; i < user.Roles.length; i++) {
+      if (user.Roles[i].name === 'admin') return false;
+    }
+    return true;
+  });
+
+  return users;
+};
+
+userService.blockAUser = async ({ userId }) => {
+  await User.update(
+    { isBlocked: true },
+    {
+      where: {
+        id: userId,
+      },
+    },
+  );
 };
 
 export default userService;

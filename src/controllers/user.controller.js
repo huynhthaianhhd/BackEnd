@@ -22,4 +22,15 @@ userController.getMany = catchAsync(async (req, res) => {
   res.json({ users });
 });
 
+userController.getAllUsersExceptAdmin = catchAsync(async (req, res) => {
+  const users = await userService.getAllUsersExceptAdmin();
+  res.json({ users });
+});
+
+userController.blockAUser = catchAsync(async (req, res) => {
+  const { params } = req;
+  await userService.blockAUser(params);
+  res.json({ success: true });
+});
+
 export default userController;

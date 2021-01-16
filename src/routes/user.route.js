@@ -14,6 +14,10 @@ router.get(
   userController.getMany,
 );
 
+router.get('/', userController.getAllUsersExceptAdmin);
+
+router.put('/:userId/block-user', userController.blockAUser);
+
 router.get('/info', auth(), userController.getInfo);
 
 router.put(

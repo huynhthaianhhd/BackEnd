@@ -19,6 +19,7 @@ bookingController.bookTickets = catchAsync(async (req, res) => {
     showTimeId,
     pickedSeatIds,
   });
+  return res.json({ message: 'Book tickets success' });
 });
 
 export default bookingController;

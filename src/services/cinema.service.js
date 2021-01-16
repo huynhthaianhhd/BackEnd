@@ -1,4 +1,10 @@
-import { Cinema, Seat, Transaction, ShowTime } from 'database/models';
+import {
+  Cinema,
+  Seat,
+  Transaction,
+  ShowTime,
+  GroupCinema,
+} from 'database/models';
 
 const cinemaService = {};
 
