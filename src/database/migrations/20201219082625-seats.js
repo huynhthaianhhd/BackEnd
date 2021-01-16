@@ -16,9 +16,12 @@ module.exports = {
         },
       },
       row: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       no: {
+        type: Sequelize.INTEGER,
+      },
+      price: {
         type: Sequelize.INTEGER,
       },
       type: {

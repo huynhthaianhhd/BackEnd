@@ -14,6 +14,9 @@ module.exports = {
       trailerUrl: {
         type: Sequelize.STRING,
       },
+      posterUrl: {
+        type: Sequelize.STRING,
+      },
       director: {
         type: Sequelize.STRING,
       },

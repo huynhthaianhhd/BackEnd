@@ -41,6 +41,8 @@ const movies = [...Array(50)].map(() => ({
   director: `${faker.name.firstName()} ${faker.name.lastName()}`,
   description: faker.lorem.paragraph(),
   trailerUrl: 'https://www.youtube.com/embed/XW2E2Fnh52w',
+  posterUrl:
+    'https://img.moviepostershop.com/replicas-movie-poster-2019-1010778791.jpg',
   duration: faker.random.number({
     min: 60,
     max: 180,
@@ -91,14 +93,24 @@ const cinemas = cinemaGroups
 // Fake 1250 seats (50 seats per cinema)
 const seats = cinemas
   .map((cinema) => {
-    return [...Array(50)].map((_, index) => ({
-      id: faker.random.uuid(),
-      cinemaId: cinema.id,
-      no: index,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }));
+    return [...Array(5)].map((_, index) => {
+      const row = String.fromCharCode(65 + index);
+      const price = row >= 'C' && row <= 'D' ? 70 : 50;
+      return [...Array(10)].map((_, index) => ({
+        row,
+        price,
+        id: faker.random.uuid(),
+        cinemaId: cinema.id,
+        no: index + 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }));
+    });
   })
+  .reduce((acc, curr) => {
+    acc.push(...curr);
+    return acc;
+  }, [])
   .reduce((acc, curr) => {
     acc.push(...curr);
     return acc;
