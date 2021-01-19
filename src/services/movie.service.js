@@ -29,64 +29,42 @@ movieService.getMovieByCinema = async () => {
 };
 
 movieService.getMovieById = async ({ id }) => {
-  const now = moment();
-  const startOfDate = now.startOf('date').format('');
-  const endOfDate = now.endOf('date');
-
   return await Movie.findOne({
     where: {
       id,
     },
-    include: [
-      {
-        model: ShowTime,
-        as: 'showTimes',
-        where: {
-          startTime: {
-            [Op.gte]: now,
-          },
-        },
-        include: [
-          {
-            model: Cinema,
-            as: 'cinema',
-            include: [{ model: GroupCinema, as: 'groupCinema' }],
-          },
-        ],
-      },
-    ],
   });
 };
 
-movieService.getShowTime = async () => {
-  const now = moment();
-  const startOfDate = now.startOf('date').format('');
-  const endOfDate = now.endOf('date');
+// movieService.getShowTime = async (id) => {
+//   const now = moment();
+//   const startOfDate = now.startOf('date').format('');
+//   const endOfDate = now.endOf('date');
 
-  return await Movie.findOne({
-    where: {
-      id,
-    },
-    include: [
-      {
-        model: ShowTime,
-        as: 'showTimes',
-        where: {
-          startTime: {
-            [Op.gte]: now,
-          },
-        },
-        include: [
-          {
-            model: Cinema,
-            as: 'cinema',
-            include: [{ model: GroupCinema, as: 'groupCinema' }],
-          },
-        ],
-      },
-    ],
-  });
-};
+//   return await Movie.findOne({
+//     where: {
+//       id,
+//     },
+//     include: [
+//       {
+//         model: ShowTime,
+//         as: 'showTimes',
+//         where: {
+//           startTime: {
+//             [Op.gte]: now,
+//           },
+//         },
+//         include: [
+//           {
+//             model: Cinema,
+//             as: 'cinema',
+//             include: [{ model: GroupCinema, as: 'groupCinema' }],
+//           },
+//         ],
+//       },
+//     ],
+//   });
+// };
 
 movieService.getMovieReviewsById = async ({ id }) => {
   const reviews = await MovieReview.findAll({
