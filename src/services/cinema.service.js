@@ -3,8 +3,11 @@ import {
   Seat,
   Transaction,
   ShowTime,
+  Movie,
   // GroupCinema,
 } from 'database/models';
+import { Op } from 'sequelize';
+import moment from 'moment';
 
 const cinemaService = {};
 
@@ -35,29 +38,35 @@ cinemaService.getOneByShowTimeId = async (showTimeId) => {
 
 cinemaService.getCinemaOfGroupByTimeNMovie = async (data) => {
   const { movieId, startTime, idGroup } = data;
-  const timeGet = moment(startTime).format('YYYY-MM-DD');
-
+  const tempDate = startTime || Date();
+  const timeGet = moment(tempDate).format('YYYY-MM-DD');
   const timeStart = moment(`${timeGet} 00:00:00`);
   const timeEnd = moment(`${timeGet} 23:59:59`);
 
-  const cinemas = await ShowTime.findAll({
+  const cinemas = await Movie.findAll({
+    where: {
+      id: movieId,
+    },
     include: [
       {
         model: Cinema,
-        as: 'cinema',
-        required: false,
+        as: 'cinemas',
         where: {
           idGroup,
         },
+        include: [
+          {
+            model: ShowTime,
+            as: 'showTime',
+            where: {
+              startTime: {
+                [Op.between]: [timeStart, timeEnd],
+              },
+            },
+          },
+        ],
       },
     ],
-    where: {
-      movieId,
-      startTime: {
-        [Op.between]: [timeStart, timeEnd],
-      },
-    },
-    order: [['createdAt', 'DESC']],
   });
 
   return cinemas;
