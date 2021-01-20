@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: false,
       },
       name: DataTypes.STRING,
+      logo: DataTypes.STRING,
     },
     {
       sequelize,

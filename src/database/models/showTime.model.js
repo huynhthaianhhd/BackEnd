@@ -5,8 +5,12 @@ module.exports = (sequelize, DataTypes) => {
   class ShowTime extends Model {
     static associate(models) {
       this.belongsTo(models.Cinema, {
-        as: 'cinema',
         foreignKey: 'cinemaId',
+        as: 'cinema',
+      });
+      this.belongsTo(models.Movie, {
+        foreignKey: 'movieId',
+        as: 'movie',
       });
     }
   }

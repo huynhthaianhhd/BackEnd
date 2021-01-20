@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
         as: 'showTime',
         foreignKey: 'cinemaId',
       });
+      this.belongsTo(models.GroupCinema, {
+        foreignKey: 'idGroup',
+        as: 'groupCinema',
+      });
     }
   }
 

@@ -9,6 +9,7 @@
     "dev": "npm run build && nodemon ./dist/bundle.js",
     "migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
     "migrate:seed": "sequelize db:seed:undo:all && sequelize db:seed:all",
+    "migrate:all": "npm run migrate && npm run migrate:seed",
     "lint": "eslint ./src/ --ignore-path .gitignore",
     "lint:fix": "npm lint --fix",
     "prettify": "prettier --write"

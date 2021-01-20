@@ -1,5 +1,6 @@
 import { GroupCinema, Cinema, Movie, ShowTime } from 'database/models';
 import moment from 'moment';
+import { Op } from 'sequelize';
 const groupCinema = {};
 
 groupCinema.getAll = async () => {
@@ -8,36 +9,35 @@ groupCinema.getAll = async () => {
   });
 };
 
-groupCinema.getAllByGroupId = async ({ id }) => {
-  // return await Cinema.findAll({
-  //   where: {
-  //     idGroup: id,
-  //   },
-  //   include: [
-  //     {
-  //       model: Movie,
-  //       as: 'movies',
-  //       include: [
-  //         {
-  //           model: ShowTime,
-  //           as: 'showTimes',
-  //           where: {
-  //             id: '2e7cccf9-b8ae-4596-9fd4-8effcf72ab7d',
-  //           },
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // });
-  return await ShowTime.findAll({
+groupCinema.getAllByGroupId = async ({ id, date }) => {
+  let tempDate = date || Date();
+  const timeGet = moment(tempDate).format('YYYY-MM-DD');
+  const timeStart = moment(`${timeGet} 00:00:00`);
+  const timeEnd = moment(`${timeGet} 23:59:59`);
+
+  return await Cinema.findAll({
+    where: {
+      idGroup: id,
+    },
+    order: [
+      ['id', 'DESC'],
+      ['name', 'ASC'],
+    ],
     include: [
-      { model: Movie, as: 'showTimes' },
       {
-        model: Cinema,
+        model: Movie,
         as: 'movies',
-        where: {
-          idGroup: id,
-        },
+        include: [
+          {
+            model: ShowTime,
+            as: 'showTimes',
+            where: {
+              startTime: {
+                [Op.between]: [timeStart, timeEnd],
+              },
+            },
+          },
+        ],
       },
     ],
   });

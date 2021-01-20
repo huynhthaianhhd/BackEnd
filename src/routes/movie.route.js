@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get('/', movieController.getAll);
 router.get('/group', groupCinemaController.getAll);
+router.post('/group', groupCinemaController.getAll);
 router.get('/:id', movieController.getMovieById);
 router.get('/reviews/:id', movieController.getMovieReviewsById);
 router.post('/reviews', auth(), movieController.createMovieReview);

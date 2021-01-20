@@ -1,6 +1,11 @@
-import { Cinema, Seat, Transaction, ShowTime } from 'database/models';
-import moment from 'moment';
-const { Op } = require('sequelize');
+import {
+  Cinema,
+  Seat,
+  Transaction,
+  ShowTime,
+  // GroupCinema,
+} from 'database/models';
+
 const cinemaService = {};
 
 cinemaService.getAll = async () => {
