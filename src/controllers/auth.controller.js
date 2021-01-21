@@ -17,4 +17,15 @@ authController.login = catchAsync(async (req, res) => {
   res.json({ user: user.transform(), tokens });
 });
 
+authController.oAuth = async (req, res, next) => {
+  try {
+    const { user } = req;
+    const tokens = await tokenService.generateAuthTokens(user);
+    delete user.password;
+    res.json({ user, tokens });
+  } catch (error) {
+    return next(error);
+  }
+};
+
 export default authController;

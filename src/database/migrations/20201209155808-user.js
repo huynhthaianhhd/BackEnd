@@ -26,6 +26,12 @@ module.exports = {
       address: {
         type: Sequelize.STRING,
       },
+      google: {
+        type: Sequelize.STRING,
+      },
+      facebook: {
+        type: Sequelize.STRING,
+      },
       isBlocked: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,

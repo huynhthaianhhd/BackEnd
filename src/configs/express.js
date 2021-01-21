@@ -4,7 +4,6 @@ import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import cors from 'cors';
 import passport from 'passport';
-import { jwtStrategy } from 'configs/passport';
 import { logs } from 'configs/vars';
 import routes from 'routes';
 import {
@@ -12,6 +11,11 @@ import {
   errorHandler,
   notFoundHandler,
 } from 'middlewares/error';
+import {
+  jwtStrategy,
+  facebookStrategy,
+  googleStrategy,
+} from 'configs/passport';
 
 const app = express();
 
@@ -27,6 +31,8 @@ app.options('*', cors());
 
 app.use(passport.initialize());
 passport.use('jwt', jwtStrategy);
+passport.use('facebook', facebookStrategy);
+passport.use('google', googleStrategy);
 
 // Function-level-middleware
 app.use((req, res, next) => {

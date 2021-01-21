@@ -1,7 +1,9 @@
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
+import BearerStrategy from 'passport-http-bearer';
 import { jwt as jwtVars } from 'configs/vars';
 import { TOKEN_TYPES } from 'utils/constants';
 import { User } from 'database/models';
+import { authProviders, userService } from 'services';
 
 const jwtOptions = {
   secretOrKey: jwtVars.secret,
@@ -23,4 +25,16 @@ const jwtVerify = async (payload, done) => {
   }
 };
 
+const oAuth = (service) => async (token, done) => {
+  try {
+    const userData = await authProviders[service](token);
+    const user = await userService.oAuthLogin(userData);
+    return done(null, user);
+  } catch (err) {
+    return done(err);
+  }
+};
+
 export const jwtStrategy = new JwtStrategy(jwtOptions, jwtVerify);
+export const facebookStrategy = new BearerStrategy(oAuth('facebook'));
+export const googleStrategy = new BearerStrategy(oAuth('google'));

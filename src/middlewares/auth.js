@@ -39,4 +39,7 @@ const auth = (...requiredRoles) => async (req, res, next) => {
     .catch((err) => next(err));
 };
 
+export const oAuth = (service) =>
+  passport.authenticate(service, { session: false });
+
 export default auth;
