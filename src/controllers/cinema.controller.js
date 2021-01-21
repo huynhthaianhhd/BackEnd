@@ -14,4 +14,14 @@ cinemaController.getCinemaOfGroupByTimeNMovie = catchAsync(async (req, res) => {
   res.json({ status: 'Success', data: cinemas });
 });
 
+cinemaController.getReviewOfCinema = catchAsync(async (req, res) => {
+  const { id } = req.body;
+  const reviews = await cinemaService.getReviewById({ id });
+  res.send(reviews);
+});
+
+cinemaController.addReviewForCinema = catchAsync(async (req, res) => {
+  const newReviews = await cinemaService.addReviewForCinema(req.body);
+  res.send(newReviews);
+});
 export default cinemaController;

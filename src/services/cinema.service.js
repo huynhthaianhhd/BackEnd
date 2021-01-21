@@ -4,9 +4,11 @@ import {
   Transaction,
   ShowTime,
   Movie,
+  CinemaReview,
+  User,
   // GroupCinema,
 } from 'database/models';
-import { Op } from 'sequelize';
+import { Op, fn, col } from 'sequelize';
 import moment from 'moment';
 
 const cinemaService = {};
@@ -70,6 +72,32 @@ cinemaService.getCinemaOfGroupByTimeNMovie = async (data) => {
   });
 
   return cinemas;
+};
+
+cinemaService.getReviewById = async (data) => {
+  const { id } = data;
+  return await Cinema.findOne({
+    where: { id },
+    include: {
+      model: CinemaReview,
+      as: 'cinemaReview',
+      include: {
+        model: User,
+        as: 'user',
+      },
+    },
+  });
+};
+
+cinemaService.addReviewForCinema = async (data) => {
+  const { id, userId, cinemaId, content, rating } = data;
+  return await CinemaReview.create({
+    id,
+    userId,
+    cinemaId,
+    content,
+    rating,
+  });
 };
 
 export default cinemaService;

@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'idGroup',
         as: 'groupCinema',
       });
+      this.hasMany(models.CinemaReview, {
+        foreignKey: 'cinemaId',
+        as: 'cinemaReview',
+      });
     }
   }
 
