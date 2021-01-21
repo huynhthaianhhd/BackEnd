@@ -8,11 +8,18 @@ import { Op } from 'sequelize';
 const userService = {};
 
 userService.getUserByEmail = async (email) => {
-  return await User.findOne({
+  const user = await User.findOne({
     where: {
       email,
     },
+    include: {
+      model: Role,
+    },
   });
+  user.roles = Object.values(user.Roles).map((item) => item.name);
+  delete user.Roles;
+
+  return user;
 };
 
 userService.getUserById = async (id) => {

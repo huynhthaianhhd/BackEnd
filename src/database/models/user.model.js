@@ -72,7 +72,15 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.prototype.transform = function () {
-    const fields = ['id', 'email', 'name', 'avatar', 'country', 'phone'];
+    const fields = [
+      'id',
+      'email',
+      'name',
+      'avatar',
+      'country',
+      'phone',
+      'roles',
+    ];
     return pick(this, fields);
   };
 
