@@ -30,4 +30,10 @@ movieControler.createMovieReview = catchAsync(async (req, res) => {
   res.json({ status: 'Success', data: movieReviews });
 });
 
+movieControler.searchMovies = catchAsync(async (req, res) => {
+  const data = req.body;
+  const movies = await movieService.searchMovies(data);
+  res.json({ status: 'Success', data: movies });
+});
+
 export default movieControler;

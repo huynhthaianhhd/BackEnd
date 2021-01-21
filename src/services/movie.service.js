@@ -94,4 +94,16 @@ movieService.createMovieReview = async (data) => {
   return newReview;
 };
 
+movieService.searchMovies = async (data) => {
+  const { limit, term } = data;
+  return await Movie.findAll({
+    limit: limit || 20,
+    where: {
+      name: {
+        [Op.like]: `%${term}%`,
+      },
+    },
+  });
+};
+
 export default movieService;
