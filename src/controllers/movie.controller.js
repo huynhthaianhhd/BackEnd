@@ -35,7 +35,7 @@ movieControler.updateMovieById = catchAsync(async (req, res) => {
     category,
     id,
   );
-  const movie = await movieService.getMovieById(id);
+  const movie = await movieService.getMovieById({ id });
   res.json({ movie: movie, success: true });
 });
 

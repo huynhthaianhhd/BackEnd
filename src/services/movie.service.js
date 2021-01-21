@@ -110,7 +110,7 @@ movieService.getMovieByCinema = async () => {
   });
 };
 
-movieService.getMovieById = async (id) => {
+movieService.getMovieById = async ({ id }) => {
   return await Movie.findOne({
     where: {
       id,
