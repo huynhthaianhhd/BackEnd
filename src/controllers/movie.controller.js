@@ -9,6 +9,19 @@ movieControler.getAll = catchAsync(async (req, res) => {
   res.send(allMovie);
 });
 
+// Lấy tất cả các movie, không limit
+movieControler.getAllMovie = catchAsync(async (req, res) => {
+  const allMovie = await movieService.getAllMovie();
+  res.json({ movies: allMovie });
+});
+
+// Xóa movie theo id
+movieControler.deleteMovie = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  await movieService.deleteMovie(id);
+  res.json({ success: true });
+});
+
 movieControler.getMovieById = catchAsync(async (req, res) => {
   const { id } = req.params;
   const movie = await movieService.getMovieById({ id });

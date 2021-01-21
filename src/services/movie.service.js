@@ -1,6 +1,7 @@
 import {
   Movie,
   MovieReview,
+  Transaction,
   User,
   Cinema,
   ShowTime,
@@ -8,12 +9,61 @@ import {
 } from 'database/models';
 import { Op } from 'sequelize';
 import moment from 'moment';
+import showTimeService from './showTime.service';
 
 const movieService = {};
 movieService.getAll = async ({ limit, offset }) => {
   return await Movie.findAll({
     limit: limit || 8,
     offset: offset || 8,
+  });
+};
+
+// Lấy tất cả các phim không limit
+movieService.getAllMovie = async () => {
+  return await Movie.findAll({});
+};
+
+const deleteAllTransactionANdMovieReview = async (id) => {
+  // Tìm ra tất cả các showtime với movie đó
+  const showTimes = await showTimeService.getAllByMovieId(id);
+  // Xóa các movieReview
+  MovieReview.destroy({
+    where: {
+      movieId: id,
+    },
+  });
+  // Xóa các transaction
+  for (let i = 0; i < showTimes.length; i++) {
+    Transaction.destroy({
+      where: {
+        showTimeId: showTimes[i].id,
+      },
+    });
+  }
+};
+
+const deleteAllShowTime = async (id) => {
+  ShowTime.destroy({
+    where: {
+      movieId: id,
+    },
+  });
+};
+
+// Xóa 1 movie
+movieService.deleteMovie = async (id) => {
+  // Xóa các transaction liên quan đến movie
+  await deleteAllTransactionANdMovieReview(id);
+
+  // Xóa các showtime liên quan đến movie
+  await deleteAllShowTime(id);
+
+  // Xóa movie
+  await Movie.destroy({
+    where: {
+      id: id,
+    },
   });
 };
 
