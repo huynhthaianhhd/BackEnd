@@ -8,10 +8,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.UUID,
       },
-      movieId: {
+      cinemaId: {
         type: Sequelize.UUID,
         references: {
-          model: 'Movies',
+          model: 'Cinemas',
           key: 'id',
         },
       },

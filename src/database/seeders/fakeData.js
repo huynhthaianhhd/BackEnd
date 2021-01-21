@@ -229,6 +229,32 @@ const movieReviews = [...Array(200)].map(() => ({
   updatedAt: new Date(),
 }));
 
+// Fake 200 cinema reviews
+const cinemaReviews = [...Array(200)].map(() => ({
+  id: faker.random.uuid(),
+  userId:
+    members[
+      faker.random.number({
+        min: 0,
+        max: 49,
+      })
+    ].id,
+  content: faker.lorem.paragraph(),
+  rating: faker.random.number({
+    min: 1,
+    max: 5,
+  }),
+  cinemaId:
+    cinemas[
+      faker.random.number({
+        min: 0,
+        max: 24,
+      })
+    ].id,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+}));
+
 module.exports = {
   defaultPassword,
   roleIds,
@@ -241,6 +267,7 @@ module.exports = {
   showTimes,
   transactions,
   movieReviews,
+  cinemaReviews,
   up: () => Promise.resolve(),
   down: () => Promise.resolve(),
 };
