@@ -24,6 +24,38 @@ movieService.getAllMovie = async () => {
   return await Movie.findAll({});
 };
 
+// Lấy tất cả các phim không limit
+movieService.updateMovieById = async (
+  director,
+  duration,
+  name,
+  posterUrl,
+  premiereTime,
+  category,
+  id,
+) => {
+  console.log(premiereTime);
+  if (!premiereTime) {
+    try {
+      return await Movie.update(
+        { director, duration, name, posterUrl, category },
+        { where: { id: id } },
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    try {
+      return await Movie.update(
+        { director, duration, name, posterUrl, category, premiereTime },
+        { where: { id: id } },
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+
 const deleteAllTransactionANdMovieReview = async (id) => {
   // Tìm ra tất cả các showtime với movie đó
   const showTimes = await showTimeService.getAllByMovieId(id);
@@ -78,7 +110,7 @@ movieService.getMovieByCinema = async () => {
   });
 };
 
-movieService.getMovieById = async ({ id }) => {
+movieService.getMovieById = async (id) => {
   return await Movie.findOne({
     where: {
       id,

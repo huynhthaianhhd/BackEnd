@@ -8,10 +8,11 @@ router.get('/', movieController.getAll);
 router.get('/all', movieController.getAllMovie);
 router.get('/group', groupCinemaController.getAll);
 router.post('/group', groupCinemaController.getAll);
+router.post('/search', movieController.searchMovies);
+router.post('/reviews', auth(), movieController.createMovieReview);
 router.get('/:id', movieController.getMovieById);
+router.put('/:id', movieController.updateMovieById);
 router.delete('/:id', movieController.deleteMovie);
 router.get('/reviews/:id', movieController.getMovieReviewsById);
-router.post('/reviews', auth(), movieController.createMovieReview);
-router.post('/search', movieController.searchMovies);
 
 export default router;
