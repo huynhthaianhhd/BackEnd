@@ -10,7 +10,14 @@ newsController.getNewsById = catchAsync(async (req, res) => {
 });
 
 newsController.getManyNews = catchAsync(async (req, res) => {
-  const news = await newsService.getMany();
+  const { limit } = req.query;
+  const news = await newsService.getMany(limit);
+  return res.json(news);
+});
+
+newsController.createOrUpdateNews = catchAsync(async (req, res) => {
+  const userId = req.user.id;
+  const news = await newsService.createOrUpdate({ ...req.body, userId });
   return res.json(news);
 });
 

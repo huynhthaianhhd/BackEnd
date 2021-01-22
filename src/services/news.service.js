@@ -12,16 +12,29 @@ newsService.getById = async (id) => {
   return news;
 };
 
-newsService.getMany = async () => {
-  const news = await New.findAll({
-    limit: 2,
+newsService.getMany = async (limit) => {
+  if (limit)
+    return await New.findAll({
+      limit: limit,
+      order: [['createdAt', 'DESC']],
+      attributes: {
+        exclude: ['content'],
+      },
+    });
+  return await New.findAll({
     order: [['createdAt', 'DESC']],
-    attributes: {
-      exclude: ['content'],
-    },
   });
+};
 
-  return news;
+newsService.createOrUpdate = async (data) => {
+  const { id, ...rest } = data;
+  if (id) {
+    return await New.update(rest, {
+      where: {
+        id,
+      },
+    });
+  } else return await New.create(rest);
 };
 
 export default newsService;

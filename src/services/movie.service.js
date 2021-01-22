@@ -1,25 +1,22 @@
 import {
+  Cinema,
   Movie,
   MovieReview,
+  ShowTime,
   Transaction,
   User,
-  Cinema,
-  ShowTime,
-  GroupCinema,
 } from 'database/models';
-import { Op } from 'sequelize';
-import moment from 'moment';
-import { showTimeService } from 'services';
-import { pick } from 'utils/common';
-import ApiError from 'utils/ApiError';
 import httpStatus from 'http-status';
+import { Op } from 'sequelize';
+import { showTimeService } from 'services';
+import ApiError from 'utils/ApiError';
 
 const movieService = {};
 movieService.getAll = async ({ limit, offset }) => {
   const movies = await Movie.findAll({
-    limit: limit || 8,
-    offset: offset || 8,
-    order: [['createdAt', 'DESC']],
+    limit: limit || 0,
+    offset: offset || 0,
+    order: [['premiereTime', 'DESC']],
     include: [{ model: MovieReview, as: 'movieReviews' }],
   });
 
