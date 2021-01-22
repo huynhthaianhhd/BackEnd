@@ -21,6 +21,8 @@ module.exports = {
           id: '6f807670-2175-46b9-87f5-23925f30405e',
           email: 'admin@gmail.com',
           password: defaultPassword,
+          avatar:
+            'https://i.pinimg.com/474x/77/5b/91/775b91d4b1bfcac2aa3292b47763c1b1.jpg',
           name: 'Im Admin',
           createdAt: new Date(),
           updatedAt: new Date(),
