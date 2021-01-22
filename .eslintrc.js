@@ -21,7 +21,7 @@ module.exports = {
     'space-before-function-paren': [2, { anonymous: 'always', named: 'never' }],
     'spaced-comment': 0,
     'computed-property-spacing': [2, 'never'],
-    'max-len': [2, 100, 4, { ignoreUrls: true }],
+    'max-len': [2, 150, 4, { ignoreUrls: true }],
     'no-trailing-spaces': [2, { skipBlankLines: true }],
     'array-bracket-spacing': [2, 'never'],
     'arrow-spacing': 2,

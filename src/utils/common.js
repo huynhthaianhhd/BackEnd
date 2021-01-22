@@ -19,3 +19,15 @@ export const flatObjectsByKeys = (objects, flattedKeys) => {
     return obj;
   });
 };
+
+export const nameOfSeats = (pickedSeats) => {
+  return pickedSeats
+    .map((item) => `${item.row}${item.no.toString().padStart(2, '0')}`)
+    .join(', ');
+};
+export const calcTotal = (pickedSeats) => {
+  return pickedSeats.reduce((pre, curr) => pre + curr.price, 0);
+};
+export const pricePerSeatToString = (pickedSeats) => {
+  return pickedSeats.map((item) => item.price).join('-');
+};
