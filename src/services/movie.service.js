@@ -182,14 +182,18 @@ movieService.createMovieReview = async (data) => {
 };
 
 movieService.searchMovies = async (data) => {
-  const { limit, term } = data;
-  return await Movie.findAll({
-    limit: limit || 20,
+  const { perPage = 8, term, page } = data;
+  return await Movie.findAndCountAll({
     where: {
       name: {
         [Op.like]: `%${term}%`,
       },
     },
+    distinct: true,
+    include: [{ model: MovieReview, as: 'movieReviews' }],
+    limit: perPage,
+    offset: (page - 1) * perPage,
+    order: [['updatedAt', 'DESC']],
   });
 };
 
