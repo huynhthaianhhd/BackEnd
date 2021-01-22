@@ -5,6 +5,7 @@ import cinemaService from './cinema.service';
 import bookingService from './booking.service';
 import transactionService from './transaction.service';
 import showTimeService from './showTime.service';
+import newsService from './news.service';
 import authProviders from './authProviders';
 
 export {
@@ -15,5 +16,6 @@ export {
   bookingService,
   transactionService,
   showTimeService,
+  newsService,
   authProviders,
 };
