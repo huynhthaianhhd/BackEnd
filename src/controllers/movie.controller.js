@@ -15,6 +15,34 @@ movieControler.getAllMovie = catchAsync(async (req, res) => {
   res.json({ movies: allMovie });
 });
 
+// Thêm phim
+movieControler.createMovie = catchAsync(async (req, res) => {
+  const {
+    director,
+    duration,
+    name,
+    posterUrl,
+    premiereTime,
+    category,
+    trailerUrl,
+    description,
+    language,
+  } = req.body;
+  const { id } = req.params;
+  const movie = await movieService.createMovie(
+    director,
+    duration,
+    name,
+    posterUrl,
+    premiereTime,
+    category,
+    id,
+    trailerUrl,
+    description,
+    language,
+  );
+  res.json({ movie: movie, success: true });
+});
 // Chỉnh sửa phim theo id
 movieControler.updateMovieById = catchAsync(async (req, res) => {
   const {
@@ -24,6 +52,9 @@ movieControler.updateMovieById = catchAsync(async (req, res) => {
     posterUrl,
     premiereTime,
     category,
+    trailerUrl,
+    description,
+    language,
   } = req.body;
   const { id } = req.params;
   await movieService.updateMovieById(
@@ -34,6 +65,9 @@ movieControler.updateMovieById = catchAsync(async (req, res) => {
     premiereTime,
     category,
     id,
+    trailerUrl,
+    description,
+    language,
   );
   const movie = await movieService.getMovieById({ id });
   res.json({ movie: movie, success: true });
