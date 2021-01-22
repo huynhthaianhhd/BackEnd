@@ -5,6 +5,7 @@ import auth from 'middlewares/auth';
 const router = express.Router();
 
 router.get('/', movieController.getAll);
+router.post('/', movieController.createMovie);
 router.get('/all', movieController.getAllMovie);
 router.get('/group', groupCinemaController.getAll);
 router.post('/group', groupCinemaController.getAll);

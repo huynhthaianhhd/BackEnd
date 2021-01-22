@@ -7,12 +7,26 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
+      },
+      userId: {
+        allowNull: false,
+        primaryKey: true,
+        type: Sequelize.UUID,
         references: {
           model: 'Users',
           key: 'id',
         },
       },
       content: {
+        type: Sequelize.TEXT,
+      },
+      title: {
+        type: Sequelize.TEXT,
+      },
+      description: {
+        type: Sequelize.TEXT,
+      },
+      thumbnail: {
         type: Sequelize.TEXT,
       },
       createdAt: {

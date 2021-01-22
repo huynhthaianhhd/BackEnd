@@ -11,6 +11,8 @@ import { Op } from 'sequelize';
 import moment from 'moment';
 import { showTimeService } from 'services';
 import { pick } from 'utils/common';
+import ApiError from 'utils/ApiError';
+import httpStatus from 'http-status';
 
 const movieService = {};
 movieService.getAll = async ({ limit, offset }) => {
@@ -29,7 +31,42 @@ movieService.getAllMovie = async () => {
   return await Movie.findAll({});
 };
 
-// Lấy tất cả các phim không limit
+// Tạo phim
+movieService.createMovie = async (
+  director,
+  duration,
+  name,
+  posterUrl,
+  premiereTime,
+  category,
+  id,
+  trailerUrl,
+  description,
+  language,
+) => {
+  if (!premiereTime) {
+    throw new ApiError(
+      httpStatus.NOT_ACCEPTABLE,
+      'Vui lòng nhập vào thời điểm ra mắt',
+    );
+  } else {
+    return await Movie.create({
+      director,
+      duration,
+      name,
+      posterUrl,
+      category,
+      premiereTime,
+      trailerUrl,
+      description,
+      language,
+      classify: 'P',
+      casts: ['Wilhelm Thiel', 'Maynard Hayes'],
+    });
+  }
+};
+
+// Update phim theo id
 movieService.updateMovieById = async (
   director,
   duration,
@@ -38,26 +75,39 @@ movieService.updateMovieById = async (
   premiereTime,
   category,
   id,
+  trailerUrl,
+  description,
+  language,
 ) => {
-  console.log(premiereTime);
   if (!premiereTime) {
-    try {
-      return await Movie.update(
-        { director, duration, name, posterUrl, category },
-        { where: { id: id } },
-      );
-    } catch (error) {
-      console.log(error);
-    }
+    return await Movie.update(
+      {
+        director,
+        duration,
+        name,
+        posterUrl,
+        category,
+        trailerUrl,
+        description,
+        language,
+      },
+      { where: { id: id } },
+    );
   } else {
-    try {
-      return await Movie.update(
-        { director, duration, name, posterUrl, category, premiereTime },
-        { where: { id: id } },
-      );
-    } catch (error) {
-      console.log(error);
-    }
+    return await Movie.update(
+      {
+        director,
+        duration,
+        name,
+        posterUrl,
+        category,
+        premiereTime,
+        trailerUrl,
+        description,
+        language,
+      },
+      { where: { id: id } },
+    );
   }
 };
 
@@ -182,14 +232,18 @@ movieService.createMovieReview = async (data) => {
 };
 
 movieService.searchMovies = async (data) => {
-  const { limit, term } = data;
-  return await Movie.findAll({
-    limit: limit || 20,
+  const { perPage = 8, term, page } = data;
+  return await Movie.findAndCountAll({
     where: {
       name: {
         [Op.like]: `%${term}%`,
       },
     },
+    distinct: true,
+    include: [{ model: MovieReview, as: 'movieReviews' }],
+    limit: perPage,
+    offset: (page - 1) * perPage,
+    order: [['updatedAt', 'DESC']],
   });
 };
 
