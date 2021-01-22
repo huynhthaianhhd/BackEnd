@@ -100,4 +100,19 @@ cinemaService.addReviewForCinema = async (data) => {
   });
 };
 
+cinemaService.getCinemaByMovie = async (data) => {
+  const { id } = data;
+  return await Cinema.findAll({
+    include: [
+      {
+        model: Movie,
+        where: { id },
+        as: 'movies',
+        attributes: [],
+      },
+    ],
+    attributes: ['id', 'name', 'location'],
+  });
+};
+
 export default cinemaService;

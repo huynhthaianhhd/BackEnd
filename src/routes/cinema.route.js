@@ -20,4 +20,7 @@ router.post(
   validate(reviewValidate),
   cinemaController.addReviewForCinema,
 );
+
+router.get('/movie', cinemaController.getCinemaByMovie);
+
 export default router;

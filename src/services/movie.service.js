@@ -193,4 +193,28 @@ movieService.searchMovies = async (data) => {
   });
 };
 
+movieService.getAllMovieInDay = async () => {
+  const timeGet = moment(Date()).format('YYYY-MM-DD');
+  const timeStart = moment(`${timeGet} 00:00:00`);
+  const timeEnd = moment(`${timeGet} 23:59:59`);
+  return await Movie.findAll({
+    include: [
+      {
+        model: Cinema,
+        as: 'cinemas',
+        include: [
+          {
+            model: ShowTime,
+            as: 'showTime',
+            where: {
+              startTime: {
+                [Op.between]: [timeStart, timeEnd],
+              },
+            },
+          },
+        ],
+      },
+    ],
+  });
+};
 export default movieService;

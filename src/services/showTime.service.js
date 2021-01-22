@@ -1,4 +1,4 @@
-import { ShowTime } from 'database/models';
+import { ShowTime, Movie, Cinema } from 'database/models';
 import httpStatus from 'http-status';
 import ApiError from 'utils/ApiError';
 
@@ -12,6 +12,22 @@ showTimeService.getAllByMovieId = async (movieId) => {
   });
 };
 
-showTimeService.getBy;
+showTimeService.getByCinemaAndMovie = async (data) => {
+  const { movieId, cinemaId } = data;
+  return await ShowTime.findAll({
+    include: [
+      {
+        model: Movie,
+        where: { id: movieId },
+        attributes: [],
+      },
+      {
+        model: Cinema,
+        where: { id: cinemaId },
+        attributes: [],
+      },
+    ],
+  });
+};
 
 export default showTimeService;

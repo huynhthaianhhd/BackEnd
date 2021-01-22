@@ -1,5 +1,6 @@
 import movieService from 'services/movie.service';
 import catchAsync from 'utils/catchAsync';
+import { validate } from 'uuid';
 
 const movieControler = {};
 
@@ -46,8 +47,9 @@ movieControler.deleteMovie = catchAsync(async (req, res) => {
   res.json({ success: true });
 });
 
-movieControler.getMovieById = catchAsync(async (req, res) => {
+movieControler.getMovieById = catchAsync(async (req, res, next) => {
   const { id } = req.params;
+  console.log(validate(id));
   const movie = await movieService.getMovieById({ id });
   res.json({ status: 'Success', data: movie });
 });
@@ -71,6 +73,11 @@ movieControler.searchMovies = catchAsync(async (req, res) => {
   const data = req.body;
   const movies = await movieService.searchMovies(data);
   res.json({ status: 'Success', data: movies });
+});
+
+movieControler.getAllInDay = catchAsync(async (req, res) => {
+  const result = await movieService.getAllMovieInDay();
+  res.send(result);
 });
 
 export default movieControler;

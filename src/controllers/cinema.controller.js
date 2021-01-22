@@ -24,4 +24,15 @@ cinemaController.addReviewForCinema = catchAsync(async (req, res) => {
   const newReviews = await cinemaService.addReviewForCinema(req.body);
   res.send(newReviews);
 });
+
+cinemaController.getCinemaByMovie = catchAsync(async (req, res) => {
+  const listMovie = await cinemaService.getCinemaByMovie(req.query);
+  if (listMovie) {
+    const result = listMovie;
+    return res.send(result);
+  } else {
+    return res.send([]);
+  }
+});
+
 export default cinemaController;
