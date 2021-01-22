@@ -25,6 +25,8 @@ const moviePosterUrls = [
   'https://images-na.ssl-images-amazon.com/images/I/71zaL8t0qgL._AC_SL1406_.jpg',
 ];
 
+const movieClasses = ['P', 'C13', 'C16', 'C18'];
+
 // Get date from to
 let mom = function (from, to) {
   const fromMilli = Date.parse(from);
@@ -84,7 +86,7 @@ const movies = [...Array(50)].map(() => ({
     max: 180,
   }),
   category: faker.random.word(),
-  classify: 'P',
+  classify: faker.random.arrayElement(movieClasses),
   casts: [
     ...Array(
       faker.random.number({

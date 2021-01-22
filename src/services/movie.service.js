@@ -9,14 +9,19 @@ import {
 } from 'database/models';
 import { Op } from 'sequelize';
 import moment from 'moment';
-import showTimeService from './showTime.service';
+import { showTimeService } from 'services';
+import { pick } from 'utils/common';
 
 const movieService = {};
 movieService.getAll = async ({ limit, offset }) => {
-  return await Movie.findAll({
+  const movies = await Movie.findAll({
     limit: limit || 8,
     offset: offset || 8,
+    order: [['createdAt', 'DESC']],
+    include: [{ model: MovieReview, as: 'movieReviews' }],
   });
+
+  return movies;
 };
 
 // Lấy tất cả các phim không limit
