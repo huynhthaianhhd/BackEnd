@@ -10,6 +10,7 @@ import httpStatus from 'http-status';
 import { Op } from 'sequelize';
 import { showTimeService } from 'services';
 import ApiError from 'utils/ApiError';
+import moment from 'moment';
 
 const movieService = {};
 movieService.getAll = async ({ limit, offset }) => {
