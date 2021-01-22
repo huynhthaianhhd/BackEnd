@@ -22,4 +22,22 @@ bookingController.bookTickets = catchAsync(async (req, res) => {
   return res.json({ message: 'Book tickets success' });
 });
 
+bookingController.getAll = catchAsync(async (req, res) => {
+  const trans = await transactionService.getAll();
+  const data = trans.map((trans) => {
+    return {
+      id: trans.id,
+      userName: trans.user?.name,
+      phone: trans.user?.phone,
+      seat: `${trans.seat?.row}${trans.seat?.no}`,
+      price: trans.seat?.price,
+      time: trans.showTime?.startTime,
+      movie: trans.showTime?.movie.name,
+      posterUrl: trans.showTime?.movie.posterUrl,
+      cinema: trans.showTime?.cinema.name,
+    };
+  });
+  return res.json({ status: 'Success', data });
+});
+
 export default bookingController;
